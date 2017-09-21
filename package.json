@@ -1,0 +1,45 @@
+{
+  "name": "kurs-react",
+  "version": "1.0.0",
+  "description": "chess",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/server"
+  },
+  "author": "Michał Kwiatek",
+  "license": "ISC",
+  "dependencies": {
+    "babel-plugin-wildcard": "^2.1.2",
+    "bootstrap": "^3.3.7",
+    "classnames": "^2.2.5",
+    "immutable": "^3.8.1",
+    "react": "^15.6.1",
+    "react-bootstrap": "^0.31.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.5",
+    "react-router": "^2.8.1",
+    "react-router-redux": "^5.0.0-alpha.6",
+    "redux": "^3.7.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-react-hmre": "^1.1.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "copy-webpack-plugin": "^4.0.1",
+    "css-loader": "^0.25.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "html-webpack-plugin": "^2.29.0",
+    "node-sass": "^4.5.3",
+    "react-hot-loader": "^3.0.0-beta.7",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.13.2",
+    "url-loader": "^0.5.9",
+    "webpack": "^1.15.0",
+    "webpack-dev-server": "^1.16.5"
+  }
+}
