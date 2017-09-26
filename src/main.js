@@ -1,6 +1,8 @@
 import React from "react";
 import { render } from "react-dom";
+import { Provider } from "react-redux";
 import ChessBoard from "./ChessBoard";
+import store from "./store";
 
 class App extends React.Component{
     render() {
@@ -10,4 +12,8 @@ class App extends React.Component{
     }
 }
 
-render(<App/>, window.document.getElementById('root'));
+render(
+    <Provider store={store}>
+        <App/>
+    </Provider>
+, window.document.getElementById('root'));

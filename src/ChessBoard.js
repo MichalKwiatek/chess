@@ -1,18 +1,19 @@
 import React from "react";
 import { render } from "react-dom";
 import Tile from "./Tile";
+import './chessboard.scss';
 
 class ChessBoard extends React.Component{
     constructor(){
         super();
-        this.tiles = this.generateRows();
+        this.tiles = this.generateTiles();
     }
 
-    generateRows(){
+    generateTiles(){
         var rows = [];
-        for (let i=0; i < 8; i++) {
-            for (let j=0; j < 8; j++) {
-                rows.push(<Tile />);
+        for (let x=0; x < 8; x++) {
+            for (let y=0; y < 8; y++) {
+                rows.push(<Tile x={x} y={y}/>);
             }
         }
         return rows;
@@ -20,7 +21,7 @@ class ChessBoard extends React.Component{
 
     render() {
         return (
-            <div>
+            <div className="chessboard">
                 {this.tiles}
             </div>
         );
