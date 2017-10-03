@@ -6,7 +6,6 @@ class King extends React.Component{
         super();
     }
 
-
     render() {
         return (
             <div draggable="true" className="chessPiece" id={this.props.index} type={this.props.type}>
