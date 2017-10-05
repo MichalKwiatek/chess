@@ -2,22 +2,18 @@ import React from "react";
 import {connect} from "react-redux";
 import King from "./King";
 
+const chessPieces = {
+    King
+  };
+
 class Tile extends React.Component{
     constructor(props){
         super();
         this.classString = ((props.x + props.y) % 2) ? 'tile white' : 'tile green'; 
         this.index = props.x + props.y * 8;
-        this.tile = props.tiles[this.index.toString()];
-        this.object = this.tile
-         ? React.createElement(this.tile.type)
-         : null;
     }
 
-    movePiece(){
-        this.props.movePiece(0,1,'King');
-    }
-
-    allowDrop(ev) {
+    onDragOver(ev) {
         ev.preventDefault();
     }
 
@@ -27,10 +23,13 @@ class Tile extends React.Component{
     }
 
     render() {
+        this.tile = this.props.tiles[this.index.toString()];
+        this.object = this.tile
+         ? React.createElement(chessPieces[this.tile.type])
+         : null;
         return (
-            <div className={this.classString}  onDrop={this.drop} onDragOver={this.allowDrop}>
+            <div className={this.classString}  onDrop={this.drop} onDragOver={this.onDragOver} id={this.index}>
                 {this.object}
-                <button style={{position:'absolute'}} onClick={this.movePiece.bind(this)}>g</button>
             </div>
         );
     }
