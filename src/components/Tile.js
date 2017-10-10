@@ -1,16 +1,14 @@
 import React from "react";
 import {connect} from "react-redux";
-import King from "./King";
-
-const chessPieces = {
-    King
-  };
+import ChessPiece from "./ChessPiece";
+import validateMove from '../moveValidation/movementValidator';
 
 class Tile extends React.Component{
     constructor(props){
         super();
-        this.classString = ((props.x + props.y) % 2) ? 'tile white' : 'tile green'; 
-        this.index = props.x + props.y * 8;
+        this.classString = ((props.x + props.y) % 2) ? 'tile green' : 'tile white'; 
+        this.index = props.x * 8 + props.y;
+        this.drop = this.drop.bind(this);
     }
 
     onDragOver(ev) {
@@ -18,14 +16,16 @@ class Tile extends React.Component{
     }
 
     drop(ev) {
-        var data = ev.dataTransfer.getData("text");
+        if(validateMove(this.props.dragged.type, this.props.dragged.index, this.index,this.props.tiles)){
+            this.props.movePiece(this.props.dragged.index, this.index);
+        }
         ev.preventDefault();
     }
 
     render() {
         this.tile = this.props.tiles[this.index.toString()];
         this.object = this.tile
-         ? React.createElement(chessPieces[this.tile.type])
+         ? React.createElement(ChessPiece, {index: this.index, type:this.tile.type, owner:this.tile.owner})
          : null;
         return (
             <div className={this.classString}  onDrop={this.drop} onDragOver={this.onDragOver} id={this.index}>
@@ -35,8 +35,10 @@ class Tile extends React.Component{
     }
 }
 const mapStateToProps = (state) => {
+    state = state.toJS();
     return{
-        tiles: state.toJS()
+        tiles: state.pieces,
+        dragged: state.dragged
     }
 }
 
@@ -47,8 +49,7 @@ const mapDispatchToProps = (dispatch) => {
                 type: 'MOVE_PIECE',
                 payload:{
                     oldIndex,
-                    newIndex,
-                    type
+                    newIndex
                 }
             });
         }

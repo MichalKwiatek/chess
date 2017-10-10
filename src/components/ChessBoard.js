@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
 import Tile from "./Tile";
-import './chessboard.scss';
+import '../chessboard.scss';
 
 class ChessBoard extends React.Component{
     constructor(){

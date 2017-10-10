@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
-import ChessBoard from "./ChessBoard";
+import ChessBoard from "./components/ChessBoard";
 import store from "./store";
 
 class App extends React.Component{
