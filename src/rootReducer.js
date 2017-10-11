@@ -12,7 +12,6 @@ const rootReducer = (state, action) => {
             state = state.set('dragged',fromJS(action.payload));
             break;
         }
-    console.log(state.toJS());
     return state;
  }
 

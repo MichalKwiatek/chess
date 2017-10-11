@@ -4,27 +4,31 @@ import validateKnightMove from './KnightMoveValidator';
 import validateBishopMove from './BishopMoveValidator';
 import validateRookMove from './RookMoveValidator';
 import validateQueenMove from './QueenMoveValidator';
+import isKingChecked from './isKingChecked';
 
 const validateMove = (type, oldIndex, newIndex, tiles) => {
+    if(newIndex == oldIndex) return false;
+    let validation = false;
     if(type == 'King'){
-        return validateKingMove(oldIndex, newIndex, tiles);
+        validation = validateKingMove(oldIndex, newIndex, tiles);
     }
     if(type == 'Pawn'){
-        return validatePawnMove(oldIndex, newIndex, tiles);
+        validation = validatePawnMove(oldIndex, newIndex, tiles);
     }
     if(type == 'Knight'){
-        return validateKnightMove(oldIndex, newIndex, tiles);
+        validation = validateKnightMove(oldIndex, newIndex, tiles);
     }
     if(type == 'Bishop'){
-        return validateBishopMove(oldIndex, newIndex, tiles);
+        validation = validateBishopMove(oldIndex, newIndex, tiles);
     }
     if(type == 'Rook'){
-        return validateRookMove(oldIndex, newIndex, tiles);
+        validation = validateRookMove(oldIndex, newIndex, tiles);
     }
     if(type == 'Queen'){
-        return validateQueenMove(oldIndex, newIndex, tiles);
+        validation = validateQueenMove(oldIndex, newIndex, JSON.parse(JSON.stringify(tiles)));
     }
-    return true;
+    if(!validation) return false;
+    return isKingChecked(oldIndex, newIndex, tiles);
 }
 
 export default validateMove;
