@@ -5,11 +5,11 @@ const validateKnightMove = (oldIndex, newIndex, tiles) => {
     let oldX = getX(oldIndex);
     let oldY = getY(oldIndex);
     for(let i = 0;i<knightMoves.length;i++){
-        if(validateCoordinates(oldX + knightMoves[i].x, oldX + knightMoves[i].y) && newIndex - oldIndex == knightMoves[i].total){
-            if(tiles[newIndex] && tiles[newIndex].owner == piece.owner) return false;
+        if(validateCoordinates(oldX + knightMoves[i].x, oldY + knightMoves[i].y) && newIndex - oldIndex == knightMoves[i].total){
+            if(!tiles[newIndex] || tiles[newIndex].owner != piece.owner) return true;
         }
     }
-    return true;
+    return false;
 }
 
 function validateCoordinates(x, y){

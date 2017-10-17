@@ -57,10 +57,28 @@ function isKingChecked(oldIndex, newIndex, tiles){
         return true;
     }
     function checkForKnights(){
+        let oldX = getX(kingIndex);
+        let oldY = getY(kingIndex);
         for(let i = 0;i<knightMoves.length;i++){
-            if(tiles[kingIndex + knightMoves[i]] && tiles[kingIndex + knightMoves[i]].owner != king.owner && tiles[kingIndex + knightMoves[i]].type == 'Knight') return false;
+            if(validateCoordinates(oldX + knightMoves[i].x, oldY + knightMoves[i].y)){
+                if(tiles[kingIndex + knightMoves[i]] && tiles[kingIndex + knightMoves[i]].owner != king.owner && tiles[kingIndex + knightMoves[i]].type == 'Knight') return false;
+            }
         }
         return true;
+    }
+    
+    function validateCoordinates(x, y){
+        if(x < 0 || x > 7) return false;
+        if(y < 0 || y > 7) return false;
+        return true;
+    }
+    
+    function getX(index){
+        return Math.floor(index/8);
+    }
+    
+    function getY(index){
+        return index % 8;
     }
     function checkForKing(){
         let index = null;
