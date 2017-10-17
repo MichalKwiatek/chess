@@ -27,8 +27,6 @@ function getDirection(oldIndex, newIndex){
     if(oldX > newX && newY < oldY){
         return 'up-left';
     }
-    console.log('error old: ' + oldIndex + ' new: ' + newIndex);
-
 }
 
 function getX(index){

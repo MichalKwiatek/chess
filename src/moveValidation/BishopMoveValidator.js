@@ -11,7 +11,7 @@ const validateBishopMove = (oldIndex, newIndex, tiles) => {
     if(!validation) return false;
     let direction = getDirection(oldIndex, newIndex);
     const piece = tiles[oldIndex];
-    for(let i = (oldIndex+= directionsMoves[direction]); i != newIndex; i+= directionsMoves[direction]){
+    for(let i = (oldIndex+= directionsMoves[direction].total); i != newIndex; i+= directionsMoves[direction].total){
         if(tiles[i.toString()]) return false;
     }
     if(tiles[newIndex.toString()] && tiles[newIndex.toString()].owner == piece.owner) return false;
