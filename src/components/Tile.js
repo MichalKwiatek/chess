@@ -2,6 +2,8 @@ import React from "react";
 import {connect} from "react-redux";
 import ChessPiece from "./ChessPiece";
 import validateMove from '../moveValidation/movementValidator';
+import checkIfCastling from '../moveValidation/checkIfCastling';
+import validateCastling from '../moveValidation/validateCastling';
 
 class Tile extends React.Component{
     constructor(props){
@@ -17,6 +19,7 @@ class Tile extends React.Component{
 
     drop(ev) {
         if(validateMove(this.props.dragged.type, this.props.dragged.index, this.index,this.props.tiles)){
+            if(checkIfCastling(this.props.dragged.index, this.index,this.props.tiles) && validateCastling()) null; 
             this.props.movePiece(this.props.dragged.index, this.index);
         }
         ev.preventDefault();
