@@ -4,6 +4,7 @@ import ChessPiece from "./ChessPiece";
 import validateMove from '../moveValidation/movementValidator';
 import checkIfCastling from '../moveValidation/checkIfCastling';
 import validateCastling from '../moveValidation/validateCastling';
+import calculatePossibleMoves from '../moveValidation/calculatePossibleMoves';
 
 class Tile extends React.Component{
     constructor(props){
@@ -11,6 +12,7 @@ class Tile extends React.Component{
         this.classString = ((props.x + props.y) % 2) ? 'tile green' : 'tile white'; 
         this.index = props.x * 8 + props.y;
         this.drop = this.drop.bind(this);
+        this.possibleMoves = [];
     }
 
     onDragOver(ev) {
@@ -18,8 +20,12 @@ class Tile extends React.Component{
     }
 
     drop(ev) {
-        if(validateMove(this.props.dragged.type, this.props.dragged.index, this.index,this.props.tiles)){
-            if(checkIfCastling(this.props.dragged.index, this.index,this.props.tiles) && validateCastling()) null; 
+        if(checkIfCastling(this.props.dragged.index, this.index,this.props.tiles) && validateCastling(this.props.dragged.index, this.index,this.props.tiles)){
+            this.props.movePiece(this.props.dragged.index, this.index);
+            if(this.props.dragged.index > this.index) this.props.movePiece(this.index - 1, this.index + 1);
+            if(this.props.dragged.index < this.index) this.props.movePiece(this.index + 2, this.index - 1);
+        }
+        else if(validateMove(this.props.dragged.type, this.props.dragged.index, this.index,this.props.tiles)){
             this.props.movePiece(this.props.dragged.index, this.index);
         }
         ev.preventDefault();
@@ -30,6 +36,7 @@ class Tile extends React.Component{
         this.object = this.tile
          ? React.createElement(ChessPiece, {index: this.index, type:this.tile.type, owner:this.tile.owner})
          : null;
+         if(this.tile) this.possibleMoves = calculatePossibleMoves(this.index, this.tiles);
         return (
             <div className={this.classString}  onDrop={this.drop} onDragOver={this.onDragOver} id={this.index}>
                 {this.object}

@@ -4,11 +4,13 @@ import validateKnightMove from './KnightMoveValidator';
 import validateBishopMove from './BishopMoveValidator';
 import validateRookMove from './RookMoveValidator';
 import validateQueenMove from './QueenMoveValidator';
-import isKingChecked from './isKingChecked';
+import checkTileSafety from './checkTileSafety';
+import prepareChessBoardAfterMove from './prepareChessBoardAfterMove';
 
 const validateMove = (type, oldIndex, newIndex, tiles) => {
     if(newIndex == oldIndex) return false;
     let validation = false;
+    const piece = tiles[oldIndex];
     if(type == 'King'){
         validation = validateKingMove(oldIndex, newIndex, tiles);
     }
@@ -25,10 +27,20 @@ const validateMove = (type, oldIndex, newIndex, tiles) => {
         validation = validateRookMove(oldIndex, newIndex, tiles);
     }
     if(type == 'Queen'){
-        validation = validateQueenMove(oldIndex, newIndex, JSON.parse(JSON.stringify(tiles)));
+        validation = validateQueenMove(oldIndex, newIndex, tiles);
     }
     if(!validation) return false;
-    return isKingChecked(oldIndex, newIndex, tiles);
+    const newTiles = prepareChessBoardAfterMove(oldIndex, newIndex, tiles);
+    let kingIndex = getKingIndex(newTiles);
+    return checkTileSafety(kingIndex, piece.owner, newTiles);
+
+    function getKingIndex(newTiles){
+        for(let key in newTiles) {
+            if(newTiles[key].owner == piece.owner && newTiles[key].type == 'King') {
+                return parseInt(key);
+            }
+        }
+    }
 }
 
 export default validateMove;
