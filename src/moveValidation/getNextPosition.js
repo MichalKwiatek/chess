@@ -1,6 +1,6 @@
 import directionsMoves from './directionsMoves';
 
-function getNextMoveFromDirection(index, direction){
+function getNextPosition(index, direction){
     let oldX = getX(index);
     let oldY = getY(index);
     if(!validateCoordinates(oldX + directionsMoves[direction].x, oldY + directionsMoves[direction].y)) return null;
@@ -21,4 +21,4 @@ function validateCoordinates(x, y){
     return true;
 }
 
-export default getNextMoveFromDirection;
+export default getNextPosition;

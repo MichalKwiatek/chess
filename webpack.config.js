@@ -1,64 +1,76 @@
-var path = require('path');
-var ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const path = require('path'),
+  fs = require('fs');
+const HtmlWebPackPlugin = require("html-webpack-plugin");
 
+const htmlWebpackPlugin = new HtmlWebPackPlugin({
+  template: `src/index.html`,
+  filename: "./index.html"
+});
 
 module.exports = {
-	entry: [
-		'webpack-dev-server/client?http://localhost:8080',
-	    'webpack/hot/only-dev-server',
-		 path.join( __dirname, '/src/main.js')
-	],
-	output: {
-		path: path.join( __dirname, 'dist'),
-		filename: 'bundle.js',
-		publicPath: '/'
-	},
-	resolve: {
-		extensions: ['','.js','.jsx']
-	},
-	plugins: [
-		new ExtractTextWebpackPlugin("style.css"),
-		new HtmlWebpackPlugin({
-			template: 'src/index.html',
-			filename: 'index.html'
-		}),
-		new webpack.DefinePlugin({
-			"process.env": { 
-				NODE_ENV: JSON.stringify("development") 
-			}
-		}),
-	],
-	module: {
-		loaders: [
-			{
-				test: /\.jsx?$/, // .js .jsx
-				loaders: ['babel'],
-				include: path.join(__dirname, 'src')
-			},
-			{
-				test: /\.css$/,
-				loader: ExtractTextWebpackPlugin.extract("style-loader", "css-loader")
-			},
-		    { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },
-			{ test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" },
-			{
-				test: /\.scss$/,
-				loaders: ["style", "css", "sass"],
-				include: path.join( __dirname, 'src'),
-			}
-		],
-		rules: [{
-			test: /\.scss$/,
-			use: [{
-				loader: "style-loader" // creates style nodes from JS strings
-			}, {
-				loader: "css-loader" // translates CSS into CommonJS
-			}, {
-				loader: "sass-loader" // compiles Sass to CSS
-			}]
-		}]
-	}
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader"
+        }
+      },
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: "html-loader",
+            options: { minimize: true }
+          }
+        ]
+      },
+      {
+        test: /\.css$/,
+        use:['style-loader','css-loader']
+      }
+    ]
+  },
+  plugins: [htmlWebpackPlugin],
+  resolve: {
+    modules: [path.resolve(__dirname, 'src')]
+    .concat([path.resolve(__dirname, 'node_modules')]).concat(
+      getFullLowerCaseDirectoriesRecursive(path.resolve(__dirname, 'src'))
+    ),
+    extensions: ['.js', '.jsx']
+  },
+};
+
+function getFullLowerCaseDirectoriesRecursive(forPath) {
+  var directories = []
+  getRecursively(forPath)
+
+  function getRecursively(levelPath) {
+    var levelDirectories = getFullLowerCaseDirectories(levelPath)
+    directories = directories.concat(levelDirectories)
+    levelDirectories.forEach(directory => getRecursively(directory))
+  }
+  console.log(directories)
+  return directories
+}
+
+function getFullLowerCaseDirectories(forPath) {
+  return getLowerCaseDirectories(forPath).map(relativeDir =>
+    path.resolve(forPath, relativeDir)
+  );
+}
+
+function getLowerCaseDirectories(forPath) {
+  return getDirectories(forPath).filter(wordIsLowercase);
+}
+
+function getDirectories(forPath) {
+  return fs
+    .readdirSync(forPath)
+    .filter(file => fs.lstatSync(path.join(forPath, file)).isDirectory());
+}
+
+function wordIsLowercase(word) {
+  return /[a-z]/.test(word[0]);
 }

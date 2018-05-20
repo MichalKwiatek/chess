@@ -1,0 +1,26 @@
+.chessboard{
+  width:600px;
+  height:600px;
+  border: 1px solid black;
+}
+
+.chessPiece{
+  position: absolute;
+  font-size: 57px;
+  margin-left: 9px;
+}
+
+.tile{
+  width: 12.5%;
+  height: 12.5%;
+  display: inline-block;
+}
+
+.tile.white{
+  background-color: white;
+}
+
+.tile.green{
+  background-color: green;
+}
+

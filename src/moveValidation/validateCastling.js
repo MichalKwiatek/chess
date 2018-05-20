@@ -1,7 +1,7 @@
-import getNextMoveFromDirection from './getNextMoveFromDirection';
-import getDirection from './getDirection';
-import prepareChessBoardAfterMove from './prepareChessBoardAfterMove';
-import checkTileSafety from './checkTileSafety';
+// import getNextMoveFromDirection from './getNextMoveFromDirection';
+// import getDirection from './getDirection';
+// import prepareChessBoardAfterMove from './prepareChessBoardAfterMove';
+// import checkTileSafety from './checkTileSafety';
 
 const validateCastling = (oldIndex, newIndex, tiles) => {
     const king = tiles[oldIndex];
@@ -24,4 +24,4 @@ const validateCastling = (oldIndex, newIndex, tiles) => {
         
     }
 }
-export default validateCastling;
+export default () => {};

@@ -38,7 +38,47 @@
         total:7,
         x: 1,
         y:-1
-    }
+    },
+    'knight-left-up': {
+        total:-17,
+        x: -2,
+        y:-1
+    },
+    'knight-left-down': {
+        total:-15,
+        x: -2,
+        y:1
+    },
+    'knight-up-left': {
+        total:-10,
+        x: -1,
+        y:-2
+    },
+    'knight-down-left': {
+        total:-6,
+        x: -1,
+        y:2
+    },
+    'knight-right-down': {
+        total:17,
+        x: 2,
+        y:1
+    },
+    'knight-right-up': {
+        total:15,
+        x: 2,
+        y:-1
+    },
+    'knight-down-right': {
+        total:10,
+        x: 1,
+        y: 2
+    },
+    'knight-up-right': {
+        total:6,
+        x: 1,
+        y:-2
+    },
 }
 
 export default directionsMoves;
