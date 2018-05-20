@@ -65,7 +65,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    movePiece: (oldIndex, newIndex, type) => dispatch(actions.onMovePiece(oldIndex, newIndex, type)),
+    movePiece: (oldIndex, newIndex) => dispatch(actions.onMovePiece(oldIndex, newIndex)),
     onSetPiecePossibleMoves: (index, possibleMoves) => dispatch(actions.onSetPiecePossibleMoves(index, possibleMoves))
   }
 }
