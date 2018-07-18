@@ -93,4 +93,4 @@ function checkTileSafety(tileIndex, owner, tiles){
     }
 }
 
-export default () => {};
+export default checkTileSafety;

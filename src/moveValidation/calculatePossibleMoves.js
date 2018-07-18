@@ -31,7 +31,7 @@ function calculatePossibleMoves(index, tiles) {
 		moves = getLongDistancePieceMoves(index, tiles, kingAndQueenDirections);
 	}
 
-	moves.filter(move => checkSafety(index, move, tiles))
+	moves = moves.filter(move => checkSafety(index, move, tiles))
 
 	return moves;
 }
