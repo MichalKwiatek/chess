@@ -6,6 +6,7 @@ import getKingMoves from 'getKingMoves';
 import getPawnMoves from 'getPawnMoves';
 import getKnightMoves from 'getKnightMoves';
 import getLongDistancePieceMoves from 'getLongDistancePieceMoves';
+import checkSafety from 'checkSafety';
 
 function calculatePossibleMoves(index, tiles) {
 	let moves = [];
@@ -29,6 +30,8 @@ function calculatePossibleMoves(index, tiles) {
 	if (type == 'Queen') {
 		moves = getLongDistancePieceMoves(index, tiles, kingAndQueenDirections);
 	}
+
+	moves.filter(move => checkSafety(index, move, tiles))
 
 	return moves;
 }

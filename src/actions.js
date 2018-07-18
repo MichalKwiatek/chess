@@ -6,10 +6,12 @@ export const onSetPiecePossibleMoves = (index, possibleMoves) => {
   }
 }
 
-export const onMovePiece = (oldIndex, newIndex) => {
+export const onMoveDraggedPieceIfPossible = (newIndex) => {
   return (dispatch, getState) => {
-    if (getState().getIn(['possibleMoves', oldIndex]).includes(newIndex)) {
-      return onMovePieceSuccess(oldIndex, newIndex)
+    const state = getState()
+    const oldIndex = state.getIn(['dragged', 'index'])
+    if (state.getIn(['possibleMoves', oldIndex]).includes(newIndex)) {
+      dispatch(onMovePieceSuccess(oldIndex, newIndex))
     }
   }
 }

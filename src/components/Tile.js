@@ -20,7 +20,7 @@ class Tile extends React.Component {
   }
 
   drop(ev) {
-    this.props.onMovePiece()
+    this.props.onMoveDraggedPieceIfPossible(this.index)
     // if (checkIfCastling(this.props.dragged.index, this.index, this.props.tiles) && validateCastling(this.props.dragged.index, this.index, this.props.tiles)) {
     //   this.props.movePiece(this.props.dragged.index, this.index);
     //   if (this.props.dragged.index > this.index) this.props.movePiece(this.index - 1, this.index + 1);
@@ -30,12 +30,11 @@ class Tile extends React.Component {
   }
 
   render() {
-    this.tile = this.props.tiles[this.index.toString()];
-
+    this.tile = this.props.tiles.get(this.index.toString())
     return (
       <div className={this.classString} onDrop={this.drop} onDragOver={this.onDragOver} id={this.index}>
         {this.tile
-          ? <ChessPiece index={this.index} type={this.tile.type} owner={this.tile.owner} />
+          ? <ChessPiece index={this.index} type={this.tile.get('type')} owner={this.tile.get('owner')} />
           : null}
       </div>
     );
@@ -43,29 +42,27 @@ class Tile extends React.Component {
 
   componentDidMount() {
     if (this.tile) {
-      const possibleMoves = calculatePossibleMoves(this.index, this.props.tiles);
+      const possibleMoves = calculatePossibleMoves(this.index, this.props.tiles.toJS());
       this.props.onSetPiecePossibleMoves(this.index, possibleMoves)
     }
   }
 
   componentDidUpdate() {
     if (this.tile) {
-      const possibleMoves = calculatePossibleMoves(this.index, this.props.tiles);
-      // this.props.onSetPiecePossibleMoves(this.index, possibleMoves)
+      const possibleMoves = calculatePossibleMoves(this.index, this.props.tiles.toJS());
+      this.props.onSetPiecePossibleMoves(this.index, possibleMoves)
     }
   }
 }
 const mapStateToProps = (state) => {
-  state = state.toJS();
   return {
-    tiles: state.pieces,
-    dragged: state.dragged
+    tiles: state.get('pieces'),
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    movePiece: (oldIndex, newIndex) => dispatch(actions.onMovePiece(oldIndex, newIndex)),
+    onMoveDraggedPieceIfPossible: (newIndex) => dispatch(actions.onMoveDraggedPieceIfPossible(newIndex)),
     onSetPiecePossibleMoves: (index, possibleMoves) => dispatch(actions.onSetPiecePossibleMoves(index, possibleMoves))
   }
 }

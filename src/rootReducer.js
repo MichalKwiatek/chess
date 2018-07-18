@@ -1,10 +1,8 @@
 import { fromJS } from 'immutable';
-import { Map } from 'immutable';
-import React from "react";
 
 const rootReducer = (state, action) => {
   switch (action.type) {
-    case 'onMovePiece':
+    case 'onMovePieceSuccess':
       let chessPiece = state.getIn(['pieces', action.oldIndex.toString()]).set('touched', true);
       return state
         .deleteIn(['pieces', action.oldIndex.toString()])

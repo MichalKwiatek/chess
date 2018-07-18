@@ -1,4 +1,4 @@
-import getNextMoveFromDirection from './getNextMoveFromDirection';
+import getNextMoveFromDirection from './getNextPosition';
 const directions = 
 [
     {dir:'right',hostilePieces:['Queen', 'Rook']},
