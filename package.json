@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "start": "webpack-dev-server --no-inline --mode development",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "test": "mocha"
   },
   "author": "pinglinh",
   "license": "ISC",
