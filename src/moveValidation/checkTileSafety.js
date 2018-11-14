@@ -1,4 +1,6 @@
 import getNextMoveFromDirection from './getNextPosition';
+import { getX, getY } from './coordinatesHelpers';
+
 const directions =
     [
         { dir: 'right', hostilePieces: ['Queen', 'Rook'] },
@@ -59,14 +61,7 @@ function checkTileSafety(tileIndex, owner, tiles) {
         if (y < 0 || y > 7) return false;
         return true;
     }
-
-    function getX(index) {
-        return Math.floor(index / 8);
-    }
-
-    function getY(index) {
-        return index % 8;
-    }
+    
     function checkForKing() {
         let index = null;
         for (let j = 0; j < directions.length; j++) {
