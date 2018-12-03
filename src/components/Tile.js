@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import ChessPiece from "./ChessPiece";
-import checkIfCastling from '../moveValidation/checkIfCastling';
-import validateCastling from '../moveValidation/validateCastling';
 import calculatePossibleMoves from '../moveValidation/calculatePossibleMoves';
 import * as actions from 'actions';
 
@@ -21,11 +19,6 @@ class Tile extends React.Component {
 
   drop(ev) {
     this.props.onMoveDraggedPieceIfPossible(this.index)
-    // if (checkIfCastling(this.props.dragged.index, this.index, this.props.tiles) && validateCastling(this.props.dragged.index, this.index, this.props.tiles)) {
-    //   this.props.movePiece(this.props.dragged.index, this.index);
-    //   if (this.props.dragged.index > this.index) this.props.movePiece(this.index - 1, this.index + 1);
-    //   if (this.props.dragged.index < this.index) this.props.movePiece(this.index + 2, this.index - 1);
-    // }
     ev.preventDefault();
   }
 
