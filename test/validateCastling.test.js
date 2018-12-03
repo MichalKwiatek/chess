@@ -11,6 +11,12 @@ describe('Castling when ', function () {
     newTiles[3].touched = true
     expect(validateCastling(3, 1, newTiles)).toBe(false)
   })
+
+  it('rook already moved fails', () => {
+    let newTiles = copyTiles(correctPiecesForCastling)
+    newTiles[0].touched = true
+    expect(validateCastling(3, 1, newTiles)).toBe(false)
+  })
 })
 
 function copyTiles(original) {
