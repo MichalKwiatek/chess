@@ -17,6 +17,12 @@ describe('Castling when ', function () {
     newTiles[0].touched = true
     expect(validateCastling(3, 1, newTiles)).toBe(false)
   })
+
+  it('there is piece between rook and king fails', () => {
+    let newTiles = copyTiles(correctPiecesForCastling)
+    newTiles[1] = { type: 'Bishop', owner: 'white' }
+    expect(validateCastling(3, 1, newTiles)).toBe(false)
+  })
 })
 
 function copyTiles(original) {
