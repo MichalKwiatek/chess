@@ -29,6 +29,12 @@ describe('Castling when ', function () {
     newTiles[12] = { type: 'Queen', owner: 'black' }
     expect(validateCastling(3, 1, newTiles)).toBe(false)
   })
+
+  it('tile tha king will cross is checked fails', () => {
+    let newTiles = copyTiles(correctPiecesForCastling)
+    newTiles[9] = { type: 'Queen', owner: 'black' }
+    expect(validateCastling(3, 1, newTiles)).toBe(false)
+  })
 })
 
 function copyTiles(original) {
