@@ -12,7 +12,12 @@ const getLongDistancePieceMoves = (index, tiles, directions) => {
 
 		while (true) {
 			position = getNextPosition(position, direction)
-			if (position && isHostileOrEmpty(tiles, position, piece.owner)) moves.push(position)
+			if (position && isHostileOrEmpty(tiles, position, piece.owner)) {
+				moves.push(new Move({
+					newPosition: position,
+					oldPosition: index,
+				}))
+			}
 			if (!position || !isEmpty(tiles, position)) break
 		}
 	}

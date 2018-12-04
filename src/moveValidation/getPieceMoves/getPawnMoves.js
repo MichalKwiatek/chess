@@ -9,17 +9,35 @@ const getPawnMoves = (index, tiles) => {
   const hostileDirections = getHostileDirections(piece.owner)
 
   let position = getNextPosition(index, mainDirection);
-  if(position && isEmptyPiece(tiles, position)){
-    moves.push(position);
+  if (position && isEmptyPiece(tiles, position)) {
+    moves.push(new Move({
+      newPosition: position,
+      oldPosition: index,
+    }))
     position = getNextPosition(position, mainDirection);
-    if(position && isEmptyPiece(tiles, position) && !piece.touched) moves.push(position);
+    if (position && isEmptyPiece(tiles, position) && !piece.touched) {
+      moves.push(new Move({
+        newPosition: position,
+        oldPosition: index,
+      }))
+    }
   }
 
   position = getNextPosition(index, hostileDirections[0]);
-  if(position && isHostilePiece(tiles, position, piece.owner)) moves.push(position);
+  if (position && isHostilePiece(tiles, position, piece.owner)) {
+    moves.push(new Move({
+      newPosition: position,
+      oldPosition: index,
+    }))
+  }
 
-  position = getNextPosition(index , hostileDirections[1]);
-  if(position && isHostilePiece(tiles, position, piece.owner)) moves.push(position);
+  position = getNextPosition(index, hostileDirections[1]);
+  if (position && isHostilePiece(tiles, position, piece.owner)) {
+    moves.push(new Move({
+      newPosition: position,
+      oldPosition: index,
+    }))
+  }
 
   return moves
 }
